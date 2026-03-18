@@ -31,7 +31,7 @@ class SphericalComponent : public Component {
             }
             
            virtual double getVolume() {
-                return (4/3) * 3.14 * ((1/2) * width) * ((1/2) * width) * ((1/2) * width);
+                return (4.0/3.0) * 3.14 * ((1.0/2.0) * width) * ((1.0/2.0) * width) * ((1.0/2.0) * width);
             }
 
 };
@@ -56,10 +56,10 @@ class PlayPlace {
 
     private:
         int arraySize;
-        Component * components;
+        Component** components;
 
     public:
-        PlayPlace(Component * components, int size) {
+        PlayPlace(Component ** components, int size) {
             this->arraySize = size;
             this->components = components;
         }
@@ -67,7 +67,7 @@ class PlayPlace {
         double calculateVolume() {
             double sum = 0;
             for (int i = 0; i < arraySize; i++) {
-                sum += components[i].getVolume();
+                sum += components[i]->getVolume();
             }
             return sum;
         }
@@ -75,10 +75,9 @@ class PlayPlace {
 
 int main() {
 
-    Component components[] = {
-        SphericalComponent(5,6,7),
-        CubeComponent(3,4,5)
-    };
+    Component ** components = new Component*[2];
+    components[0] = new SphericalComponent(5,6,7);
+    components[1] = new CubeComponent(3,4,5);
 
     PlayPlace * mcdonalds = new PlayPlace(components, 2);
 
